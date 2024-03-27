@@ -6,6 +6,8 @@ import Courses from '../views/Courses.vue'
 import CourseDetails from '../views/CourseDetails.vue'
 import LessonView from '../components/LessonView.vue'
 import AdminDashboard from '../views/AdminDashboard.vue'
+import Teachers from '../views/Teachers.vue'
+
 const routes = [
   {
     path: '/',
@@ -36,6 +38,11 @@ const routes = [
     path: '/admin',
     name: 'AdminDashboard',
     component: AdminDashboard
+  },
+  {
+    path: '/teachers',
+    name: 'Teachers',
+    component: Teachers
   }
     ]
 const router = createRouter({
