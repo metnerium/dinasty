@@ -110,7 +110,6 @@ import directionImg9 from '@/assets/9.svg';
 import directionImg5 from '@/assets/5.svg';
 import directionImgOl from '@/assets/ol.svg';
 import directionImgRep from '@/assets/rep.svg';
-import prep2 from '@/assets/prep2.jpg'
 export default {
   name: 'Home',
   data() {
@@ -120,21 +119,21 @@ export default {
       courses: [
         {
           title: 'Русский язык с Дарьей',
-          image: 'https://sun9-4.userapi.com/impg/YR40g2bIKofiIz6ZYm2taUEujaZGemC2VC-_zA/9_deVAoGNEQ.jpg?size=1727x2160&quality=95&sign=203b4e58a104203a20d35377dbccb320&type=album',
+          image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           teacher: 'Годовой курс ЕГЭ',
           price: '',
           link: 'course/1',
         },
         {
           title: 'Информатика с Софьей',
-          image: prep2,
+          image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           teacher: 'Годовой курс ЕГЭ',
           price: '',
           link: 'course/2',
         },
         {
           title: 'Обществознание с Даниилом',
-          image: 'https://sun9-4.userapi.com/impg/YR40g2bIKofiIz6ZYm2taUEujaZGemC2VC-_zA/9_deVAoGNEQ.jpg?size=1727x2160&quality=95&sign=203b4e58a104203a20d35377dbccb320&type=album',
+          image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           teacher: 'Годовой курс ЕГЭ',
           price: '',
           link: 'course/3',
