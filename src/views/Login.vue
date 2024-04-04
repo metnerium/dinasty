@@ -83,7 +83,7 @@ export default {
       if (!this.form) return;
       this.loading = true;
       try {
-        const response = await axios.post('http://79.174.91.58:5000/login', {
+        const response = await axios.post('http://79.174.91.58:8000/login', {
           email: this.email,
           password: this.password,
         });
@@ -106,7 +106,7 @@ export default {
       if (!this.form) return;
       this.loading = true;
       try {
-        const response = await axios.post('http://79.174.91.58:5000/register', {
+        const response = await axios.post('http://79.174.91.58:8000/register', {
           username: this.username,
           email: this.email,
           password: this.password,
