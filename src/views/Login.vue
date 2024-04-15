@@ -1,7 +1,7 @@
 <template>
-  <v-img height="100%" src="@/assets/bg.svg">
     <v-sheet class="bg-blue-darken-0 pa-5" height="100%" rounded>
-      <v-card class="mx-auto px-6 py-8" elevation="10" max-width="400">
+      <v-card class="mx-auto px-6 py-6" elevation="5" max-width="400">
+        <v-img src="https://raw.githubusercontent.com/metnerium/school_project/2765b9dffafd14995ef75c04b55ac09e578f332d/school_app/templates/school_app/img/logopur1.svg" width="160"></v-img>
         <v-form v-model="form" @submit.prevent="isLogin ? login() : register()">
           <v-text-field
             v-model="email"
@@ -17,6 +17,7 @@
             :rules="[required]"
             clearable
             label="Пароль"
+            type="password"
             placeholder="qwerty"
           ></v-text-field>
           <v-text-field
@@ -61,7 +62,6 @@
         </v-form>
       </v-card>
     </v-sheet>
-  </v-img>
 </template>
 
 <script>

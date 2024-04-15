@@ -70,10 +70,10 @@
                 sm="4"
                 class="d-flex flex-column"
               >
-                <div class="bg-deep-purple-darken-1 pb-5 cardteach">
-                  <v-img :src="course.image" class="img1" :width="400">
+                <div class="bg-black pb-5 cardteach">
+                  <v-img :src="course.image" class="img1"  width="100%">
                     <template v-slot:placeholder>
-                      <v-row class="fill-height ma-0" align="center" justify="center"></v-row>
+                      <v-row class="ma-0" align="center" justify="center"></v-row>
                     </template>
                   </v-img>
                   <div>
@@ -211,18 +211,15 @@ h1 {
   margin-bottom: 100px;
 }
 .img1 {
-  margin-bottom: 4px;
-  margin-top: 20px;
-  border: 2px rgb(185, 86, 245) solid;
-  border-radius: 15px;
-  width: 400px;
+  margin-bottom: 5px;
+  border: 10px rgb(185, 86, 245);
+  border-radius: 10px;
 }
 .v-list-item--link:hover {
   background-color: rgba(152, 46, 214, 0.15);
 }
 .cardteach {
-  border: black;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 @media (max-width: 959px) {
   h1 {
@@ -233,9 +230,6 @@ h1 {
   }
   .wid2 {
     font-size: 12px;
-  }
-  .img1 {
-    width: 220px;
   }
   .con2 {
     height: 1500px;
@@ -254,9 +248,6 @@ h1 {
   }
   .con2 {
     height: 1400px;
-  }
-  .img1 {
-    width: 300px;
   }
 }
 </style>
