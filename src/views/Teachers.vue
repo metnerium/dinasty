@@ -10,7 +10,6 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <v-parallax height="100%" :src="bgUrl">
         <v-row justify="center">
           <v-col cols="12" md="8" lg="6" class="mx-auto">
             <v-sheet class="pa-4" color="transparent">
@@ -27,7 +26,6 @@
             </v-sheet>
           </v-col>
         </v-row>
-      </v-parallax>
     </v-main>
   </v-app>
 </template>
@@ -35,13 +33,11 @@
 <style></style>
 
 <script>
-import bgUrl from '@/assets/bg.svg';
 
 export default {
   name: 'Teachers',
   data() {
     return {
-      bgUrl,
       teachers: [
         {
           name: 'Софья',
