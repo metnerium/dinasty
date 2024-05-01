@@ -1,5 +1,5 @@
-// Composables
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Courses from '../views/Courses.vue'
@@ -7,6 +7,7 @@ import CourseDetails from '../views/CourseDetails.vue'
 import LessonView from '../components/LessonView.vue'
 import AdminDashboard from '../views/AdminDashboard.vue'
 import Teachers from '../views/Teachers.vue'
+import Profil from "@/views/profile.vue"
 
 const routes = [
   {
@@ -43,11 +44,18 @@ const routes = [
     path: '/teachers',
     name: 'Teachers',
     component: Teachers
+  },
+  {
+    path: '/profil',
+    name: 'Profil',
+    component: Profil,
   }
-    ]
+]
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes
 })
+
 
 export default router

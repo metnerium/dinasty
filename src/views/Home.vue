@@ -17,12 +17,12 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn variant="outlined" @click="goToPage('login')">
+      <v-btn v-if="!username" variant="outlined" @click="goToPage('login')">
         Войти <v-icon icon="mdi-login-variant" end></v-icon>
       </v-btn>
+      <span v-else class="username" @click="goToPage('profil')">{{ username }}</span>
     </v-app-bar>
     <v-main>
-      <v-parallax height="100%" :src="bgUrl">
         <v-container class="con1">
           <v-row align="center" justify="center" class="flex-column">
             <h1 class="mt-10 text-center">ПРИСОЕДИНЯЙТЕСЬ К ДИНАСТИИ ЕГЭ</h1>
@@ -86,7 +86,6 @@
             </v-row>
           </v-sheet>
         </v-container>
-      </v-parallax>
     </v-main>
     <v-footer border>
       <v-row no-gutters class="flex-column">
@@ -100,7 +99,6 @@
     </v-footer>
   </v-app>
 </template>
-
 <script>
 import bgUrl from '@/assets/bg.svg';
 
@@ -110,11 +108,18 @@ import directionImg9 from '@/assets/9.svg';
 import directionImg5 from '@/assets/5.svg';
 import directionImgOl from '@/assets/ol.svg';
 import directionImgRep from '@/assets/rep.svg';
+import axios from "axios";
 export default {
   name: 'Home',
+  created() {
+    if (this.$store.state.jwtToken) {
+      this.fetchProfileData();
+    }
+  },
   data() {
     return {
       bgUrl,
+      username: null,
       activeBtn: null,
       courses: [
         {
@@ -184,6 +189,21 @@ export default {
     goToPage(page) {
       this.$router.push(`/${page}`);
     },
+    async fetchProfileData() {
+      try {
+        console.log(this.$store.state.jwtToken);
+        const response = await axios.get('/profile', {
+          params: {
+            jwt_token: this.$store.state.jwtToken,
+          },
+        });
+        this.username = response.data.username;
+        console.log(this.username);
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      }
+    },
+
   },
 };
 </script>
@@ -192,6 +212,29 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Scribble&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Rubik+Scribble&display=swap');
 
+body {
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.8), rgba(238, 228, 255, 0.8), rgba(255, 242, 230, 0.8), rgba(238, 228, 255, 0.8), rgba(255, 255, 255, 0.8));
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.username {
+  cursor: pointer;
+  color: #000000;
+  //font-weight: bold;
+  margin-right: 16px;
+}
 h1 {
   font-family: 'Oswald', sans-serif;
   font-optical-sizing: auto;

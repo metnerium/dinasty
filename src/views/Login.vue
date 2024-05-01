@@ -1,132 +1,112 @@
 <template>
-    <v-sheet class="bg-blue-darken-0 pa-5" height="100%" rounded>
-      <v-card class="mx-auto px-6 py-6" elevation="5" max-width="400">
-        <v-img src="https://raw.githubusercontent.com/metnerium/school_project/2765b9dffafd14995ef75c04b55ac09e578f332d/school_app/templates/school_app/img/logopur1.svg" width="160"></v-img>
-        <v-form v-model="form" @submit.prevent="isLogin ? login() : register()">
-          <v-text-field
-            v-model="email"
-            :readonly="loading"
-            :rules="[required]"
-            class="mb-2"
-            clearable
-            label="Почта"
-          ></v-text-field>
-          <v-text-field
-            v-model="password"
-            :readonly="loading"
-            :rules="[required]"
-            clearable
-            label="Пароль"
-            type="password"
-            placeholder="qwerty"
-          ></v-text-field>
-          <v-text-field
-            v-if="!isLogin"
-            v-model="username"
-            :readonly="loading"
-            :rules="[required]"
-            clearable
-            label="Имя пользователя"
-          ></v-text-field>
-          <br />
-          <v-btn
-            :disabled="!form"
-            :loading="loading"
-            class="my-2"
-            block
-            color="black"
-            size="large"
-            type="submit"
-            variant="elevated"
+  <v-app dark>
+    <v-main>
+      <v-container fluid fill-height justify-center>
+        <v-row align="center" justify="center">
+          <v-card
+            v-if="!sentCode"
+            class="py-8 px-6 text-center mx-auto ma-4"
+            elevation="3"
+            max-width="350"
+            width="100%"
           >
-            {{ isLogin ? 'Войти' : 'Зарегистрироваться' }}
-          </v-btn>
-          <v-btn
-            :loading="loading"
-            @click="isLogin = !isLogin"
-            block
-            color="black"
-            size="large"
-            variant="plain"
+
+            <h3 class="mb-4">Введите номер телефона</h3>
+            <v-text-field
+
+              density="compact"
+              v-model="phoneNumber"
+              :rules="phoneRules"
+              required
+              variant="outlined"
+            ></v-text-field>
+
+            <v-btn
+              class="my-4"
+              color="purple"
+              height="40"
+              text="Получить код"
+              variant="outlined"
+              width="70%"
+              :disabled="!isValidPhoneNumber"
+              @click="sendCode"
+            ></v-btn>
+          </v-card>
+
+          <v-card
+            v-else
+            class="py-8 px-6 text-center mx-auto ma-4"
+            elevation="12"
+            max-width="500"
+            width="350"
           >
-            {{ isLogin ? 'Зарегистрироваться' : 'Войти' }}
-          </v-btn>
-          <v-snackbar v-model="snackbar">
-            {{ text }}
-            <template v-slot:actions>
-              <v-btn color="pink" variant="text" @click="snackbar = false">
-                Close
-              </v-btn>
-            </template>
-          </v-snackbar>
-        </v-form>
-      </v-card>
-    </v-sheet>
+            <h3 class="text-h6 mb-4">Введите код из смс</h3>
+
+            <div class="text-body-2">
+              Код отправлен на номер <br />{{ phoneNumber }}
+            </div>
+
+            <v-sheet color="surface">
+              <v-otp-input
+                length="5"
+                v-model="otpCode"
+              ></v-otp-input>
+            </v-sheet>
+
+            <v-btn
+              class="my-4"
+              color="purple"
+              height="40"
+              text="Войти"
+              variant="outlined"
+              :disabled="otpCode.length !== 5"
+              width="70%"
+              @click="verifyCode"
+            ></v-btn>
+
+            <div class="text-caption">
+              Не получили СМС? <br> <a href="#" @click.prevent="resendCode">Отправить повторно</a>
+            </div>
+          </v-card>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 import axios from 'axios';
+import {h} from "vue";
 
 export default {
   data: () => ({
-    form: false,
-    email: null,
-    password: null,
-    username: null,
-    loading: false,
-    snackbar: false,
-    text: `Ошибка`,
-    isLogin: true,
+    phoneNumber: '+7',
+    otpCode: '',
+    sentCode: false,
+    phoneRules: [
+      v => !!v || 'Номер телефона обязателен',
+      v => /^(\+7)\d{10}$/.test(v) || 'Некорректный номер телефона',
+    ],
   }),
+  computed: {
+    isValidPhoneNumber() {
+      return /^(\+7)\d{10}$/.test(this.phoneNumber);
+    },
+  },
   methods: {
-    async login() {
-      if (!this.form) return;
-      this.loading = true;
-      try {
-        const response = await axios.post('http://79.174.91.58:8000/login', {
-          email: this.email,
-          password: this.password,
-        });
-        if (response.data.access_token) {
-          // сохранить access_token в localStorage или Vuex
-          this.text = 'Вход выполнен успешно';
-          this.snackbar = true;
-          // перенаправить на другую страницу
-        } else {
-          this.text = 'Неверные учетные данные';
-          this.snackbar = true;
-        }
-      } catch (error) {
-        this.text = error.response.data.error;
-        this.snackbar = true;
-      }
-      this.loading = false;
+    sendCode() {
+      axios.post("/send_auth_code", { phone_number: this.phoneNumber})
+      this.sentCode = true;
     },
-    async register() {
-      if (!this.form) return;
-      this.loading = true;
+    async verifyCode() {
       try {
-        const response = await axios.post('http://79.174.91.58:8000/register', {
-          username: this.username,
-          email: this.email,
-          password: this.password,
-        });
-        if (response.data.message === 'User registered successfully') {
-          this.text = 'Регистрация прошла успешно';
-          this.snackbar = true;
-          // перенаправить на страницу входа
-        } else {
-          this.text = 'Ошибка регистрации';
-          this.snackbar = true;
-        }
+        const response = await axios.post('/verify_code', { phone_number: this.phoneNumber }, { params: { code: this.otpCode } })
+        // Save the JWT token to Vuex
+        this.$store.commit('setJwtToken', response.data.jwt_token)
+        this.$router.push('/')
       } catch (error) {
-        this.text = error.response.data.error;
-        this.snackbar = true;
+        console.error('Error verifying code:', error)
       }
-      this.loading = false;
-    },
-    required(v) {
-      return !!v || 'Обязательное поле';
     },
   },
 };

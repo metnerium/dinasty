@@ -9,7 +9,7 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue({ 
+    vue({
       template: { transformAssetUrls }
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
@@ -35,7 +35,35 @@ export default defineConfig({
       '.vue',
     ],
   },
+
   server: {
     port: 3000,
-  },
+    proxy: {
+      '/send_auth_code': {
+        target: 'http://80.78.243.194:8000/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/send_auth_code/, '/send_auth_code'),
+      },
+      '/profile': {
+        target: 'http://80.78.243.194:8000/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/profile/, '/profile'),
+      },
+      '/verify_code': {
+        target: 'http://80.78.243.194:8000/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/verify_code/, '/verify_code'),
+      },
+      '/courses': {
+        target: 'http://80.78.243.194:8000/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/courses/, '/courses'),
+      },
+      '/set_name': {
+        target: 'http://80.78.243.194:8000/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/set_name/, '/set_name'),
+      }
+    }
+  }
 })

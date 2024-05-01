@@ -10,99 +10,99 @@
           <v-tab>Пользователи</v-tab>
           <v-tab>Курсы</v-tab>
         </v-tabs>
-        <v-tabs-items v-model="tab">
-          <v-tab-item>
-            <v-data-table
-              :headers="userHeaders"
-              :items="users"
-              sort-by="username"
-              class="elevation-1"
-            >
-              <template v-slot:top>
-                <v-toolbar flat>
-                  <v-toolbar-title>Пользователи</v-toolbar-title>
-                  <v-divider class="mx-4" inset vertical></v-divider>
-                  <v-spacer></v-spacer>
-                  <v-dialog v-model="addUserDialog" max-width="500px">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                        Добавить пользователя
-                      </v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title>
-                        <span class="text-h5">Новый пользователь</span>
-                      </v-card-title>
-                      <v-card-text>
-                        <v-form ref="addUserForm">
-                          <v-text-field v-model="newUser.username" label="Имя пользователя" required></v-text-field>
-                          <v-text-field
-                            v-model="newUser.password"
-                            label="Пароль"
-                            type="password"
-                            required
-                          ></v-text-field>
-                        </v-form>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="addUserDialog = false">Отмена</v-btn>
-                        <v-btn color="blue darken-1" text @click="addUser">Сохранить</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </v-toolbar>
-              </template>
-              <template v-slot:item.actions="{ item }">
-                <v-btn color="primary" @click="editUser(item)">Редактировать</v-btn>
-                <v-btn color="error" @click="deleteUser(item)">Удалить</v-btn>
-              </template>
-            </v-data-table>
-          </v-tab-item>
-          <v-tab-item>
-            <v-data-table
-              :headers="courseHeaders"
-              :items="courses"
-              sort-by="title"
-              class="elevation-1"
-            >
-              <template v-slot:top>
-                <v-toolbar flat>
-                  <v-toolbar-title>Курсы</v-toolbar-title>
-                  <v-divider class="mx-4" inset vertical></v-divider>
-                  <v-spacer></v-spacer>
-                  <v-dialog v-model="addCourseDialog" max-width="500px">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                        Добавить курс
-                      </v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title>
-                        <span class="text-h5">Новый курс</span>
-                      </v-card-title>
-                      <v-card-text>
-                        <v-form ref="addCourseForm">
-                          <v-text-field v-model="newCourse.title" label="Название курса" required></v-text-field>
-                          <v-textarea v-model="newCourse.description" label="Описание курса" required></v-textarea>
-                        </v-form>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="addCourseDialog = false">Отмена</v-btn>
-                        <v-btn color="blue darken-1" text @click="addCourse">Сохранить</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </v-toolbar>
-              </template>
-              <template v-slot:item.actions="{ item }">
-                <v-btn color="primary" @click="editCourse(item)">Редактировать</v-btn>
-                <v-btn color="error" @click="deleteCourse(item)">Удалить</v-btn>
-              </template>
-            </v-data-table>
-          </v-tab-item>
-        </v-tabs-items>
+<!--        <v-tabs-items v-model="tab">-->
+<!--          <v-tab-item>-->
+<!--            <v-data-table-->
+<!--              :headers="userHeaders"-->
+<!--              :items="users"-->
+<!--              sort-by="username"-->
+<!--              class="elevation-1"-->
+<!--            >-->
+<!--              <template v-slot:top>-->
+<!--                <v-toolbar flat>-->
+<!--                  <v-toolbar-title>Пользователи</v-toolbar-title>-->
+<!--                  <v-divider class="mx-4" inset vertical></v-divider>-->
+<!--                  <v-spacer></v-spacer>-->
+<!--                  <v-dialog v-model="addUserDialog" max-width="500px">-->
+<!--                    <template v-slot:activator="{ on, attrs }">-->
+<!--                      <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">-->
+<!--                        Добавить пользователя-->
+<!--                      </v-btn>-->
+<!--                    </template>-->
+<!--                    <v-card>-->
+<!--                      <v-card-title>-->
+<!--                        <span class="text-h5">Новый пользователь</span>-->
+<!--                      </v-card-title>-->
+<!--                      <v-card-text>-->
+<!--                        <v-form ref="addUserForm">-->
+<!--                          <v-text-field v-model="newUser.username" label="Имя пользователя" required></v-text-field>-->
+<!--                          <v-text-field-->
+<!--                            v-model="newUser.password"-->
+<!--                            label="Пароль"-->
+<!--                            type="password"-->
+<!--                            required-->
+<!--                          ></v-text-field>-->
+<!--                        </v-form>-->
+<!--                      </v-card-text>-->
+<!--                      <v-card-actions>-->
+<!--                        <v-spacer></v-spacer>-->
+<!--                        <v-btn color="blue darken-1" text @click="addUserDialog = false">Отмена</v-btn>-->
+<!--                        <v-btn color="blue darken-1" text @click="addUser">Сохранить</v-btn>-->
+<!--                      </v-card-actions>-->
+<!--                    </v-card>-->
+<!--                  </v-dialog>-->
+<!--                </v-toolbar>-->
+<!--              </template>-->
+<!--              <template v-slot:item.actions="{ item }">-->
+<!--                <v-btn color="primary" @click="editUser(item)">Редактировать</v-btn>-->
+<!--                <v-btn color="error" @click="deleteUser(item)">Удалить</v-btn>-->
+<!--              </template>-->
+<!--            </v-data-table>-->
+<!--          </v-tab-item>-->
+<!--          <v-tab-item>-->
+<!--            <v-data-table-->
+<!--              :headers="courseHeaders"-->
+<!--              :items="courses"-->
+<!--              sort-by="title"-->
+<!--              class="elevation-1"-->
+<!--            >-->
+<!--              <template v-slot:top>-->
+<!--                <v-toolbar flat>-->
+<!--                  <v-toolbar-title>Курсы</v-toolbar-title>-->
+<!--                  <v-divider class="mx-4" inset vertical></v-divider>-->
+<!--                  <v-spacer></v-spacer>-->
+<!--                  <v-dialog v-model="addCourseDialog" max-width="500px">-->
+<!--                    <template v-slot:activator="{ on, attrs }">-->
+<!--                      <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">-->
+<!--                        Добавить курс-->
+<!--                      </v-btn>-->
+<!--                    </template>-->
+<!--                    <v-card>-->
+<!--                      <v-card-title>-->
+<!--                        <span class="text-h5">Новый курс</span>-->
+<!--                      </v-card-title>-->
+<!--                      <v-card-text>-->
+<!--                        <v-form ref="addCourseForm">-->
+<!--                          <v-text-field v-model="newCourse.title" label="Название курса" required></v-text-field>-->
+<!--                          <v-textarea v-model="newCourse.description" label="Описание курса" required></v-textarea>-->
+<!--                        </v-form>-->
+<!--                      </v-card-text>-->
+<!--                      <v-card-actions>-->
+<!--                        <v-spacer></v-spacer>-->
+<!--                        <v-btn color="blue darken-1" text @click="addCourseDialog = false">Отмена</v-btn>-->
+<!--                        <v-btn color="blue darken-1" text @click="addCourse">Сохранить</v-btn>-->
+<!--                      </v-card-actions>-->
+<!--                    </v-card>-->
+<!--                  </v-dialog>-->
+<!--                </v-toolbar>-->
+<!--              </template>-->
+<!--              <template v-slot:item.actions="{ item }">-->
+<!--                <v-btn color="primary" @click="editCourse(item)">Редактировать</v-btn>-->
+<!--                <v-btn color="error" @click="deleteCourse(item)">Удалить</v-btn>-->
+<!--              </template>-->
+<!--            </v-data-table>-->
+<!--          </v-tab-item>-->
+<!--        </v-tabs-items>-->
       </v-container>
     </v-main>
   </v-app>
