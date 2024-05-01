@@ -100,7 +100,6 @@
   </v-app>
 </template>
 <script>
-import bgUrl from '@/assets/bg.svg';
 
 import directionImg11 from '@/assets/11.svg';
 import directionImg10 from '@/assets/10.svg';
@@ -118,7 +117,6 @@ export default {
   },
   data() {
     return {
-      bgUrl,
       username: null,
       activeBtn: null,
       courses: [
@@ -232,7 +230,6 @@ body {
 .username {
   cursor: pointer;
   color: #000000;
-  //font-weight: bold;
   margin-right: 16px;
 }
 h1 {
