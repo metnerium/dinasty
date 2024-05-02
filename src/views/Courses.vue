@@ -4,152 +4,70 @@
       <v-app-bar-title>
         <v-img src="https://raw.githubusercontent.com/metnerium/school_project/2765b9dffafd14995ef75c04b55ac09e578f332d/school_app/templates/school_app/img/logopur1.svg" class="ml-2 mt-1 wid1" :width="160"></v-img>
       </v-app-bar-title>
-      <v-btn variant="plain" @click="goToPage('')">
-        Главная
-      </v-btn>
-      <v-btn variant="outlined" @click="goToPage('login')">
+      <v-btn variant="plain" @click="goToPage('')"> Главная </v-btn>
+      <v-btn v-if="!username" variant="outlined" @click="goToPage('login')">
         Войти <v-icon icon="mdi-login-variant" end></v-icon>
       </v-btn>
+      <span v-else class="username" @click="goToPage('profil')">{{ username }}</span>
     </v-app-bar>
     <v-main>
       <v-container>
         <h1>Доступные курсы</h1>
-        <h2>ЕГЭ</h2>
         <v-row>
-          <v-col v-for="course in coursesege" :key="course.id" cols="12" md="4">
-            <CourseCard :course="course" />
-          </v-col>
-        </v-row>
-        <h2 class="mt-7">ОГЭ</h2>
-        <v-row>
-          <v-col v-for="course in coursesoge" :key="course.id" cols="12" md="4">
-            <CourseCard :course="course" />
-          </v-col>
-        </v-row>
-        <h2 class="mt-7">5-8 класс</h2>
-        <v-row>
-          <v-col v-for="course in courses5" :key="course.id" cols="12" md="4">
+          <v-col v-for="course in courses" :key="course.id" cols="12" md="4">
             <CourseCard :course="course" />
           </v-col>
         </v-row>
       </v-container>
     </v-main>
-
   </v-app>
 </template>
 
 <script>
 import CourseCard from '../components/CourseCard.vue'
+import axios from "axios";
 
 export default {
   name: 'Courses',
+  created() {
+    if (this.$store.state.jwtToken) {
+      this.fetchProfileData();
+    }
+    this.fetchCourses();
+  },
   components: {
     CourseCard
   },
   data() {
     return {
-      coursesege: [
-        {
-          id: 1,
-          title: 'Курс подготовки к ЕГЭ по Русскому языку',
-          description: 'Овладейте всеми тонкостями русского языка и научитесь писать безупречные сочинения. Наш курс поможет вам максимально подготовиться к ЕГЭ и получить высокие баллы.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 2,
-          title: 'Курс подготовки к ЕГЭ по Математике (профильный уровень)',
-          description: 'Разберитесь с самыми сложными математическими задачами и формулами. Наши опытные преподаватели помогут вам систематизировать знания и научат эффективным стратегиям решения задач ЕГЭ.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 3,
-          title: 'Курс подготовки к ЕГЭ по Обществознанию',
-          description: 'Изучите все разделы обществознания в соответствии с требованиями ЕГЭ. Наш курс поможет вам углубить понимание основных социальных процессов и научит анализировать сложные общественные явления.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 4,
-          title: 'Курс подготовки к ЕГЭ по Английскому языку',
-          description: 'Улучшите свои навыки чтения, письма, аудирования и говорения на английском языке. Наши преподаватели-носители языка помогут вам преодолеть языковой барьер и достичь высоких результатов на ЕГЭ.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 5,
-          title: 'Курс подготовки к ЕГЭ по Физике',
-          description: 'Изучите фундаментальные законы физики и научитесь применять их на практике. Наш курс поможет вам овладеть необходимыми навыками решения задач и подготовиться к ЕГЭ по физике на высоком уровне.',
-          img: '@/assets/prep2.jpg'
-        }
-      ],
-      coursesoge: [
-        {
-          id: 1,
-          title: 'Курс подготовки к ОГЭ по Русскому языку',
-          description: 'Овладейте правилами русского языка и научитесь грамотно писать сочинения и изложения. Наш курс поможет вам систематизировать знания и эффективно подготовиться к ОГЭ.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 2,
-          title: 'Курс подготовки к ОГЭ по Математике',
-          description: 'Разберитесь с основными математическими формулами и научитесь решать задачи повышенной сложности. Наши преподаватели помогут вам устранить пробелы в знаниях и достичь высоких результатов на ОГЭ.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 3,
-          title: 'Курс подготовки к ОГЭ по Обществознанию',
-          description: 'Изучите основные разделы обществознания и научитесь анализировать социальные процессы. Наш курс поможет вам углубить понимание общественных явлений и успешно сдать ОГЭ.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 4,
-          title: 'Курс подготовки к ОГЭ по Английскому языку',
-          description: 'Улучшите свои навыки чтения, письма, аудирования и говорения на английском языке. Наши опытные преподаватели помогут вам преодолеть языковой барьер и уверенно сдать ОГЭ.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 5,
-          title: 'Курс подготовки к ОГЭ по Биологии',
-          description: 'Изучите основные разделы биологии и научитесь применять знания на практике. Наш курс поможет вам систематизировать материал и успешно сдать ОГЭ по биологии.',
-          img: '@/assets/prep2.jpg'
-        }
-      ],
-      courses5: [
-        {
-          id: 1,
-          title: 'Курс по русскому языку для 5-8 классов',
-          description: 'Помогите своему ребенку закрепить знания по русскому языку и устранить пробелы в обучении. На нашем курсе опытные преподаватели научат писать грамотно и развивать навыки анализа текста.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 2,
-          title: 'Курс по математике для 5-8 классов',
-          description: 'Научитесь решать задачи повышенной сложности и заложите прочный фундамент математических знаний. Наш курс поможет вашему ребенку полюбить математику и успешно сдать контрольные работы.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 3,
-          title: 'Курс по английскому языку для 5-8 классов',
-          description: 'Улучшите навыки разговорного английского и научитесь свободно общаться на иностранном языке. Наши преподаватели-носители языка помогут вашему ребенку преодолеть языковой барьер и подготовиться к экзаменам.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 4,
-          title: 'Курс по физике для 5-8 классов',
-          description: 'Откройте для себя увлекательный мир физики и научитесь применять законы природы на практике. Наш курс поможет вашему ребенку развить логическое мышление и подготовиться к изучению физики в старших классах.',
-          img: '@/assets/prep2.jpg'
-        },
-        {
-          id: 5,
-          title: 'Курс по биологии для 5-8 классов',
-          description: 'Изучите строение живых организмов и научитесь разбираться в процессах жизнедеятельности. Наш курс поможет вашему ребенку полюбить биологию и успешно сдать контрольные работы и экзамены.',
-          img: '@/assets/prep2.jpg'
-        }
-      ]
+      username: null,
+      courses: []
     }
   },
   methods: {
     goToPage(page) {
       this.$router.push(`/${page}`);
     },
-  },
+    async fetchProfileData() {
+      try {
+        const response = await axios.get('/profile', {
+          params: {
+            jwt_token: this.$store.state.jwtToken,
+          },
+        });
+        this.username = response.data.username;
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      }
+    },
+    async fetchCourses() {
+      try {
+        const response = await axios.get('/courses');
+        this.courses = response.data;
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    }
+  }
 }
 </script>
