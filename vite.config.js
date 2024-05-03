@@ -73,7 +73,27 @@ export default defineConfig({
         target: 'http://80.78.243.194:8000/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/enrolled_courses/, '/enrolled_courses'),
-      }
+      },
+      '/users':{
+        target: 'http://80.78.243.194:8000/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/users/, '/users'),
+      },
+      '/create_courses':{
+        target: 'http://80.78.243.194:8000/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/create_courses/, '/create_courses'),
+      },
+      '/edit_courses':{
+        target: 'http://80.78.243.194:8000/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/edit_courses/, '/edit_courses'),
+      },'/enrollments':{
+        target: 'http://80.78.243.194:8000/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/enrollments/, '/enrollments'),
+      },
+
     }
   }
 })
