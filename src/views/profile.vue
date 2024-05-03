@@ -139,7 +139,7 @@ export default {
     async enrollCourse(courseId) {
       try {
         const jwtToken = localStorage.getItem('jwtToken')
-        await axios.post('/enroll', {params: {jwt_token: jwtToken, course_id: courseId}})
+        await axios.post('/enroll', {jwt_token: jwtToken, course_id: courseId})
         this.fetchProfileData(); // Обновить данные после зачисления на курс
       } catch (error) {
         console.error('Error enrolling in course:', error)
