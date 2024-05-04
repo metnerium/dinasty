@@ -24,18 +24,16 @@
       <v-container>
         <h1>Панель администратора</h1>
         <v-card>
-          <v-tabs
-            v-model="tab"
-            bg-color="primary"
-          >
+          <v-tabs v-model="tab" bg-color="primary">
             <v-tab value="one">Пользователи</v-tab>
             <v-tab value="two">Курсы</v-tab>
-            <v-tab alue="three">Зачисления</v-tab>
+            <v-tab value="three">Зачисления</v-tab>
           </v-tabs>
 
           <v-card-text>
             <v-tabs-window v-model="tab">
               <v-tabs-window-item value="one">
+                <!-- Пользователи -->
                 <v-data-table
                   :headers="userHeaders"
                   :items="users"
@@ -76,6 +74,7 @@
               </v-tabs-window-item>
 
               <v-tabs-window-item value="two">
+                <!-- Курсы -->
                 <v-data-table
                   :headers="courseHeaders"
                   :items="courses"
@@ -95,16 +94,6 @@
                           <v-card-text>
                             <v-form ref="addCourseForm">
                               <v-text-field v-model="newCourse.name" label="Название курса" required></v-text-field>
-                              <v-text-field
-                                v-model="newCourse.lessons"
-                                label="Уроки (через запятую)"
-                                required
-                              ></v-text-field>
-                              <v-text-field
-                                v-model="newCourse.video_links"
-                                label="Ссылки на видео (через запятую)"
-                                required
-                              ></v-text-field>
                             </v-form>
                           </v-card-text>
                           <v-card-actions>
@@ -122,17 +111,72 @@
                   <template v-slot:item.actions="{ item }">
                     <v-btn color="primary" @click="editCourse(item)">Редактировать</v-btn>
                     <v-btn color="error" @click="deleteCourse(item)">Удалить</v-btn>
+                    <v-btn color="success" @click="manageLessons(item)">Управление уроками</v-btn>
                   </template>
                 </v-data-table>
+
+                <!-- Диалоговое окно для управления уроками -->
+                <v-dialog v-model="lessonManagementDialog" max-width="800px">
+                  <v-card>
+                    <v-card-title>
+                      <span class="text-h5">Управление уроками для курса "{{ selectedCourse.name }}"</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-data-table
+                        :headers="lessonHeaders"
+                        :items="selectedCourse.lessons"
+                        class="elevation-1"
+
+                      >
+                        <template v-slot:top>
+                          <v-toolbar flat>
+                            <v-toolbar-title>Уроки</v-toolbar-title>
+                            <v-divider class="mx-4" inset vertical></v-divider>
+                            <v-spacer></v-spacer>
+                            <v-dialog v-model="addLessonDialog" max-width="500px">
+                              <v-card>
+                                <v-card-title>
+                                  <span class="text-h5">Новый урок</span>
+                                </v-card-title>
+                                <v-card-text>
+                                  <v-form ref="addLessonForm">
+                                    <v-text-field v-model="newLesson.name" label="Название урока" required></v-text-field>
+                                    <v-text-field v-model="newLesson.video_link" label="Ссылка на видео" required></v-text-field>
+                                  </v-form>
+                                </v-card-text>
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn color="blue darken-1" text @click="addLessonDialog = false">Отмена</v-btn>
+                                  <v-btn color="blue darken-1" text @click="addLesson">Сохранить</v-btn>
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+                            <v-btn color="primary" dark class="mb-2" @click="addLessonDialog = true">
+                              Добавить урок
+                            </v-btn>
+                          </v-toolbar>
+                        </template>
+                        <template v-slot:item.actions="{ item }">
+                          <v-btn color="primary" @click="editLesson(item)">Редактировать</v-btn>
+                          <v-btn color="error" @click="deleteLesson(item)">Удалить</v-btn>
+                        </template>
+                      </v-data-table>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue darken-1" text @click="lessonManagementDialog = false">Закрыть</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
               </v-tabs-window-item>
 
               <v-tabs-window-item value="three">
+                <!-- Зачисления -->
                 <v-data-table
                   :headers="enrollmentHeaders"
                   :items="enrollments"
                   class="elevation-1"
                 >
-
                 </v-data-table>
               </v-tabs-window-item>
             </v-tabs-window>
@@ -153,30 +197,42 @@ export default {
       tab: null,
       addUserDialog: false,
       addCourseDialog: false,
+      lessonManagementDialog: false,
+      addLessonDialog: false,
       newUser: {
         phone_number: '',
       },
       newCourse: {
         name: '',
-        lessons: '',
-        video_links: '',
+      },
+      newLesson: {
+        name: '',
+        video_link: '',
+      },
+      selectedCourse: {
+        id: null,
+        name: '',
+        lessons: [],
       },
       userHeaders: [
-        { text: 'Имя', value: 'username' },
-        { text: 'Номер телефона', value: 'phone_number' },
-        { text: 'Действия', value: 'actions', sortable: false },
+        {text: 'Имя', value: 'username'},
+        {text: 'Номер телефона', value: 'phone_number'},
+        {text: 'Действия', value: 'actions', sortable: false},
       ],
       users: [],
       courseHeaders: [
-        { text: 'Название курса', value: 'name' },
-        { text: 'Уроки', value: 'lessons' },
-        { text: 'Ссылки на видео', value: 'video_links' },
-        { text: 'Действия', value: 'actions', sortable: false },
+        {text: 'Название курса', value: 'name'},
+        {text: 'Действия', value: 'actions', sortable: false},
       ],
       courses: [],
+      lessonHeaders: [
+        {text: 'Название урока', value: 'name'},
+        {text: 'Ссылка на видео', value: 'video_link'},
+        {text: 'Действия', value: 'actions', sortable: false},
+      ],
       enrollmentHeaders: [
-        { text: 'Пользователь', value: 'user.username' },
-        { text: 'Курс', value: 'course.name' },
+        {text: 'Пользователь', value: 'user.username'},
+        {text: 'Курс', value: 'course.name'},
       ],
       enrollments: [],
       jwtToken: null,
@@ -260,7 +316,7 @@ export default {
         .then(response => {
           console.log('Новый пользователь добавлен:', response.data)
           this.addUserDialog = false
-          this.newUser = { phone_number: '' }
+          this.newUser = {phone_number: ''}
           this.fetchUsers()
         })
         .catch(error => {
@@ -283,19 +339,12 @@ export default {
         })
     },
     addCourse() {
-      const course = {
-        name: this.newCourse.name,
-        lessons: this.newCourse.lessons.split(','),
-        video_links: this.newCourse.video_links.split(',')
-      }
-      axios.post('/create_courses', course)
+      axios.post('/create_courses', this.newCourse)
         .then(response => {
           console.log('Новый курс добавлен:', response.data)
           this.addCourseDialog = false
           this.newCourse = {
             name: '',
-            lessons: '',
-            video_links: '',
           }
           this.fetchCourses()
         })
@@ -307,8 +356,6 @@ export default {
       const courseId = course.id
       const updatedCourse = {
         name: course.name,
-        lessons: course.lessons,
-        video_links: course.video_links
       }
       axios.put(`/edit_courses/${courseId}`, updatedCourse)
         .then(response => {
@@ -329,7 +376,80 @@ export default {
         .catch(error => {
           console.error('Ошибка при удалении курса:', error)
         })
-    }
+    },
+    manageLessons(course) {
+      this.fetchLessons()
+      this.selectedCourse = {
+        id: course.id,
+        name: course.name,
+        lessons: course.lessons,
+      }
+      this.lessonManagementDialog = true
+    },
+    addLesson() {
+      const courseId = this.selectedCourse.id
+      axios.post(`/courses/${courseId}/lessons`, this.newLesson)
+        .then(response => {
+          console.log('Новый урок добавлен:', response.data)
+          this.addLessonDialog = false
+          this.newLesson = {
+            name: '',
+            video_link: '',
+          }
+          this.fetchLessons()
+        })
+        .catch(error => {
+          console.error('Ошибка при добавлении урока:', error)
+        })
+    },
+    editLesson(lesson) {
+      const lessonId = lesson.id
+      const updatedLesson = {
+        name: lesson.name,
+        video_link: lesson.video_link,
+      }
+      axios.put(`/lessons/${lessonId}`, updatedLesson)
+        .then(response => {
+          console.log('Урок обновлен:', response.data)
+          this.fetchLessons()
+        })
+        .catch(error => {
+          console.error('Ошибка при обновлении урока:', error)
+        })
+    },
+    deleteLesson(lesson) {
+      const lessonId = lesson.id || lesson.lesson_id; // Попробуйте получить id из поля 'lesson_id', если 'id' не определен
+      if (lessonId) { // Проверяем, что lessonId не является undefined или null
+        axios.delete(`/lessons/${lessonId}`)
+          .then(() => {
+            console.log('Урок удален:', lesson);
+            this.fetchLessons();
+          })
+          .catch(error => {
+            console.error('Ошибка при удалении урока:', error);
+          });
+      } else {
+        console.error('Не удалось получить id урока');
+      }
+    },
+    fetchLessons() {
+      const courseId = this.selectedCourse.id;
+      axios.get(`/course_details/${courseId}`, {
+        params: {
+          jwt_token: this.jwtToken
+        }
+      })
+        .then(response => {
+          this.selectedCourse.lessons = response.data.lessons.map((lessonName, index) => ({
+            id: index + 1, // Присваиваем уникальный идентификатор для каждого урока
+            name: lessonName,
+            video_link: response.data.video_links[index]
+          }));
+        })
+        .catch(error => {
+          console.error('Ошибка при получении уроков:', error);
+        });
+    },
   }
 }
 </script>

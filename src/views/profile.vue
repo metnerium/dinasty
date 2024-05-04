@@ -4,7 +4,6 @@
       <v-app-bar-title>
         <v-img src="https://raw.githubusercontent.com/metnerium/school_project/2765b9dffafd14995ef75c04b55ac09e578f332d/school_app/templates/school_app/img/logopur1.svg" class="ml-2 mt-1 wid1" :width="160"></v-img>
       </v-app-bar-title>
-      <v-btn variant="plain" @click="goToPage('')"> Главная </v-btn>
       <v-btn-toggle v-model="activeBtn" class="hidden-sm-and-down" mandatory>
         <v-btn v-for="(item, i) in navItems" :key="i" @click="goToPage(item.route)">{{ item.title }}</v-btn>
       </v-btn-toggle>
@@ -102,6 +101,13 @@ export default {
       phoneNumber: null,
       editingName: null,
       editingNameMode: false,
+      navItems: [
+        { title: 'Главная', route: '' },
+        { title: 'ЕГЭ', route: 'courses' },
+        { title: 'Курсы', route: 'courses' },
+        { title: 'Преподаватели', route: 'teachers' },
+        { title: 'О нас', route: 'about' },
+      ],
     }
   },
   created() {

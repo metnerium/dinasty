@@ -25,7 +25,7 @@
     <v-main>
         <v-container class="con1">
           <v-row align="center" justify="center" class="flex-column">
-            <h1 class="mt-10 text-center">ПРИСОЕДИНЯЙТЕСЬ К ДИНАСТИИ ЕГЭ</h1>
+            <h1 class="mt-5 text-center">ПРИСОЕДИНЯЙТЕСЬ К ДИНАСТИИ ЕГЭ</h1>
             <h4 class="mt-3 text-center">
               Достигайте вершин с нашей пошаговой подготовкой к ЕГЭ. Ваш успех - наша цель.
             </h4>
@@ -122,21 +122,21 @@ export default {
       courses: [
         {
           title: 'Русский язык с Дарьей',
-          image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          image: 'https://avatars.mds.yandex.net/get-shedevrum/12733905/img_0c77eb970a1c11efb6608a2fbb0b6351/orig',
           teacher: 'Годовой курс ЕГЭ',
           price: '',
           link: 'course/1',
         },
         {
           title: 'Информатика с Софьей',
-          image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          image: 'https://avatars.mds.yandex.net/get-shedevrum/11477113/img_b8d7973b0a1b11efa29d5ed523baf25f/orig',
           teacher: 'Годовой курс ЕГЭ',
           price: '',
           link: 'course/2',
         },
         {
           title: 'Обществознание с Даниилом',
-          image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          image: 'https://avatars.mds.yandex.net/get-shedevrum/9283310/img_54afbc1a0a1c11ef90773ad29863823d/orig',
           teacher: 'Годовой курс ЕГЭ',
           price: '',
           link: 'course/3',
@@ -281,7 +281,7 @@ h1 {
     font-size: 24px;
   }
   .wid1 {
-    width: 110px;
+    width: 100px;
   }
   .wid2 {
     font-size: 10px;

@@ -7,8 +7,8 @@ import CourseDetails from '../views/CourseDetails.vue'
 import LessonView from '../components/LessonView.vue'
 import AdminDashboard from '../views/AdminDashboard.vue'
 import Teachers from '../views/Teachers.vue'
-import Profil from "@/views/profile.vue"
-
+import Profil from "../views/profile.vue"
+import About from "../views/About.vue"
 const routes = [
   {
     path: '/',
@@ -49,6 +49,11 @@ const routes = [
     path: '/profil',
     name: 'Profil',
     component: Profil,
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: About,
   }
 ]
 
