@@ -36,8 +36,8 @@
                 class="mr-3 mt-5 bg-deep-purple-darken-1"
                 @click="goToPage('courses')"
               >Выбрать курс</v-btn>
-              <v-btn size="large" variant="outlined" class="mt-5 hidden-sm-and-down">
-                <p class="wid2">Получить консультацию</p>
+              <v-btn href="https://t.me/da_dunia" size="large" variant="outlined" class="mt-5 hidden-sm-and-down">
+                <p class="wid2" >Получить консультацию</p>
               </v-btn>
             </div>
           </v-row>
@@ -125,52 +125,52 @@ export default {
           image: 'https://avatars.mds.yandex.net/get-shedevrum/12733905/img_0c77eb970a1c11efb6608a2fbb0b6351/orig',
           teacher: 'Годовой курс ЕГЭ',
           price: '',
-          link: 'course/1',
+          link: 'courses',
         },
         {
           title: 'Информатика с Софьей',
           image: 'https://avatars.mds.yandex.net/get-shedevrum/11477113/img_b8d7973b0a1b11efa29d5ed523baf25f/orig',
           teacher: 'Годовой курс ЕГЭ',
           price: '',
-          link: 'course/2',
+          link: 'courses',
         },
         {
           title: 'Обществознание с Даниилом',
           image: 'https://avatars.mds.yandex.net/get-shedevrum/9283310/img_54afbc1a0a1c11ef90773ad29863823d/orig',
           teacher: 'Годовой курс ЕГЭ',
           price: '',
-          link: 'course/3',
+          link: 'courses',
         },
       ],
       directions: [
         {
           title: 'ЕГЭ 11 класс',
-          link: '/ege/11-class',
+          link: '/courses',
           img: directionImg11,
         },
         {
           title: 'ЕГЭ 10 класс',
-          link: '/ege/10-class',
+          link: '/courses',
           img: directionImg10,
         },
         {
           title: 'ОГЭ 9 класс',
-          link: '/oge/9-class',
+          link: '/courses',
           img: directionImg9,
         },
         {
           title: '5-8 класс',
-          link: '/ege/5-8-class',
+          link: '/courses',
           img: directionImg5,
         },
         {
           title: 'Олимпиады',
-          link: '/olympics',
+          link: '/courses',
           img: directionImgOl,
         },
         {
           title: 'Репетиторы',
-          link: '/teachers',
+          link: '/courses',
           img: directionImgRep,
         },
       ],

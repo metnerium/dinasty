@@ -6,7 +6,7 @@
 
 // Components
 import App from './App.vue'
-
+import metrika from "@/metrika.vue";
 import { createApp } from 'vue'
 
 // Plugins
@@ -17,5 +17,5 @@ const app = createApp(App)
 
 registerPlugins(app)
 app.use(store) // Use the store
-
+app.component('metrika', metrika)
 app.mount('#app')

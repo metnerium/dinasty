@@ -49,7 +49,12 @@
 
 <script>
 import axios from "axios";
-
+import t1 from '@/assets/sonya.jpg'
+import t2 from '@/assets/slava.jpg'
+import t3 from '@/assets/danya.jpg'
+import t4 from '@/assets/darya.jpg'
+import t5 from '@/assets/liza.jpg'
+import t6 from '@/assets/nastya.jpg'
 export default {
   name: 'Teachers',
   data() {
@@ -66,37 +71,37 @@ export default {
         {
           name: 'Софья',
           subject: 'Информатика',
-          photo: 'src/assets/sonya.jpg',
+          photo: t1,
           description: 'Финансовый универститет при правительстве РФ.'
         },
         {
           name: 'Вячеслав',
           subject: 'Математика',
-          photo: 'src/assets/slava.jpg',
+          photo: t2,
           description: 'Финансовый универститет при правительстве РФ.'
         },
         {
           name: 'Даниил',
           subject: 'Обществознание',
-          photo: 'src/assets/danya.jpg',
+          photo: t3,
           description: 'Финансовый универститет при правительстве РФ.'
         },
         {
           name: 'Дарья',
           subject: 'Русский язык',
-          photo: 'src/assets/darya.jpg',
+          photo: t4,
           description: 'Финансовый универститет при правительстве РФ.'
         },
         {
           name: 'Елизавета',
           subject: 'Английский язык',
-          photo: 'src/assets/liza.jpg',
+          photo: t5,
           description: 'Финансовый универститет при правительстве РФ.'
         },
         {
           name: 'Анастасия',
           subject: 'Биология',
-          photo: 'src/assets/nastya.jpg',
+          photo: t6,
           description: 'Финансовый универститет при правительстве РФ.'
         },
       ],
