@@ -30,8 +30,8 @@
             <h1 align="center" justify="center">Наши преподаватели</h1>
             <v-row>
               <v-col v-for="(teacher, index) in teachers" :key="index" cols="12" sm="6" md="4">
-                <v-card>
-                  <v-avatar size="200" class="ml-9 mt-4">
+                <v-card class="text-center">
+                  <v-avatar size="200" class="mx-auto my-2">
                     <v-img :src="teacher.photo"></v-img>
                   </v-avatar>
                   <v-card-title>{{ teacher.name }}</v-card-title>
@@ -72,37 +72,37 @@ export default {
           name: 'Софья',
           subject: 'Информатика',
           photo: t1,
-          description: 'Финансовый универститет при правительстве РФ.'
+          description: 'Финансовый университет при правительстве РФ'
         },
         {
           name: 'Вячеслав',
           subject: 'Математика',
           photo: t2,
-          description: 'Финансовый универститет при правительстве РФ.'
+          description: 'Финансовый университет при правительстве РФ'
         },
         {
           name: 'Даниил',
           subject: 'Обществознание',
           photo: t3,
-          description: 'Финансовый универститет при правительстве РФ.'
+          description: 'Финансовый университет при правительстве РФ'
         },
         {
           name: 'Дарья',
           subject: 'Русский язык',
           photo: t4,
-          description: 'Финансовый универститет при правительстве РФ.'
+          description: 'Финансовый университет при правительстве РФ'
         },
         {
           name: 'Елизавета',
           subject: 'Английский язык',
           photo: t5,
-          description: 'Финансовый универститет при правительстве РФ.'
+          description: 'Финансовый университет при правительстве РФ'
         },
         {
           name: 'Анастасия',
           subject: 'Биология',
           photo: t6,
-          description: 'Финансовый универститет при правительстве РФ.'
+          description: 'Финансовый университет при правительстве РФ'
         },
       ],
     };

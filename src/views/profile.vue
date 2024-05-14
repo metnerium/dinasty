@@ -42,8 +42,8 @@
             <v-card>
               <v-card-title>Мои курсы</v-card-title>
               <v-row>
-                <v-col v-for="course in enrolledcourses" :key="course.id" cols="12" sm="6" md="4">
-                  <v-card class="mt-2 ml-3 mb-3 mr-3" min-width="350px" min-height="200px">
+                <v-col v-for="course in enrolledcourses" :key="course.id" cols="12" sm="12">
+                  <v-card class="mt-2 ml-3 mb-3 mr-3" min-width="300px" min-height="200px">
                     <v-img
                       height="200px"
                       src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
@@ -59,8 +59,8 @@
             <v-card class="mt-5">
               <v-card-title>Доступные курсы</v-card-title>
               <v-row>
-                <v-col v-for="course in availableCourses" :key="course.id" cols="12" sm="6" md="4">
-                  <v-card class="mt-2 ml-3 mb-3 mr-3" min-width="350px" min-height="200px">
+                <v-col v-for="course in availableCourses" :key="course.id" cols="12" sm="12" >
+                  <v-card class="mt-2 ml-3 mb-3 mr-3" min-width="300px" min-height="200px">
                     <v-img
                       height="200px"
                       src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"

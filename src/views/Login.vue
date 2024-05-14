@@ -1,13 +1,13 @@
 <template>
   <v-app dark>
     <v-main>
-      <v-container fluid fill-height justify-center>
+      <v-responsive class="align-center text-center fill-height">
+      <v-container class="w-lg-33 w-md-50 w-sm-75">
         <v-row align="center" justify="center">
           <v-card
             v-if="!sentCode"
             class="py-8 px-6 text-center mx-auto ma-4"
-            elevation="3"
-            max-width="350"
+            elevation="0"
             width="100%"
           >
 
@@ -27,7 +27,7 @@
               height="40"
               text="Получить код"
               variant="outlined"
-              width="70%"
+              width="100%"
               :disabled="!isValidPhoneNumber"
               @click="sendCode"
             ></v-btn>
@@ -36,9 +36,9 @@
           <v-card
             v-else
             class="py-8 px-6 text-center mx-auto ma-4"
-            elevation="12"
-            max-width="500"
-            width="350"
+            elevation="0"
+
+
           >
             <h3 class="text-h6 mb-4">Введите код из смс</h3>
 
@@ -70,9 +70,26 @@
           </v-card>
         </v-row>
       </v-container>
+      </v-responsive>
     </v-main>
   </v-app>
 </template>
+<style>
+  h3 {
+    font-size: 50px;
+  }
+  @media (max-width: 959px) {
+    h3 {
+      font-size: 36px;
+    }
+  }
+
+  @media (max-width: 599px) {
+    h3 {
+      font-size: 24px;
+    }
+  }
+</style>
 
 <script>
 import axios from 'axios';
@@ -103,7 +120,7 @@ export default {
         const response = await axios.post('/verify_code', { phone_number: this.phoneNumber }, { params: { code: this.otpCode } })
         // Save the JWT token to Vuex
         this.$store.commit('setJwtToken', response.data.jwt_token)
-        this.$router.push('/')
+        this.$router.push('/profil')
       } catch (error) {
         console.error('Error verifying code:', error)
       }
